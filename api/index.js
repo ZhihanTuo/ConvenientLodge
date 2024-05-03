@@ -25,3 +25,14 @@ app.listen(3000, ()=> {
 {/* using exported functions from routes directory */}
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
+
+{/* middleware: err (error sent to middleware), req (data from browser), res (response from server to client side), next (next middleware) */}
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  const message = err.message || 'Internal Server Error';
+  return res.status(statusCode).json({
+    success: false,
+    statusCode,
+    message
+  });
+});
