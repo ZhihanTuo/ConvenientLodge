@@ -1,6 +1,8 @@
 import User from "../models/user.model.js";
 import bcryptjs from 'bcryptjs';
 
+{/* get username, email, password from user and creates a new user with those parameters 
+* password is hashed before being passed in to a User object */}
 export const signup = async (req, res) => {
   const { username, email, password } = req.body;
   const hashedPassword = bcryptjs.hashSync(password, 10);

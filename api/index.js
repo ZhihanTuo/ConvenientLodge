@@ -5,14 +5,16 @@ import userRouter from './routes/user.route.js';
 import authRouter from './routes/auth.route.js';
 dotenv.config();
 
-mongoose.connect(process.env.MONGO).then(() => {
+{/* Connect to MongoDB, responds with message if connected */}
+mongoose.connect(process.env.MONGO).then(() => { {/* Hide mongoDB connection link using an environment variable */}
     console.log('Connected to MongoDB');
   }).catch((err) => {
-    console.lorg(err);
+    console.log(err);
   });
 
 const app = express();
 
+{/* Run server */}
 app.use(express.json());
 
 app.listen(3000, ()=> {
@@ -20,5 +22,6 @@ app.listen(3000, ()=> {
   }
 );
 
+{/* using exported functions from routes directory */}
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
