@@ -21,7 +21,7 @@ export const signin = async (req, res, next) => {
   const { email, password } = req.body;
   try {
     const validUser = await User.findOne({ email }); // Takes time to check through database
-    // First check user, then check password
+    // First check email, then check password
     if (!validUser) { return next(errorHandler(404, 'User not found!')); }
     const validPassword = bcryptjs.compareSync(password, validUser.password); // Need to compare the hashed password with bcryptjs.compareSync
     if (!validPassword) { return next(errorHandler(401, 'Wrong credentials!')); }
