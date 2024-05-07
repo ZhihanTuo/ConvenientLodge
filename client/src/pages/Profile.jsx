@@ -42,8 +42,16 @@ export default function Profile() {
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl font-semibold text-center my-7'>Profile</h1>
       <form className='flex flex-col gap-4'>
-        <input onChange={(e) => setFile(e.target.files[0])} type='file' ref={fileRef} hidden accept='image/*'/>
-        <img onClick={()=>fileRef.current.click()} src={formData.avatar || currentUser.avatar} alt="Profile" className='rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2'/>
+        <input onChange={(e) => setFile(e.target.files[0])} 
+          type='file' ref={fileRef} 
+          hidden 
+          accept='image/*'
+        />
+        <img onClick={()=>fileRef.current.click()} 
+          src={formData.avatar || currentUser.avatar} 
+          alt="Profile" 
+          className='rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2'
+        />
         <p className='text-sm self-center'>
           {/* If fileUploadError, generate error message */}
           {(fileUploadError) ? (<span className='text-red-700'>Image Upload Error &#40;Must be &lt;2MB&#41;</span>
