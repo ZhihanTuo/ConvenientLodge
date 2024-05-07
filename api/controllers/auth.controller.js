@@ -34,4 +34,39 @@ export const signin = async (req, res, next) => {
   } catch (error) {
     next(error); // Handled by middleware in index.js
   }
-}
+};
+
+export const google = async(req, res, next) => {
+  try {
+    const user = await User.findOne({email: req.body.email });
+    // Check if user exists; If so create token and separate password from rest of user info
+    if (user) {
+      // Token consisting of user's _id and env variable unique to this app 
+      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+      const { password: pass, ...rest } = user._doc;
+      res
+        .cookie('access_token', token, { httpOnly: true }) 
+        .status(200)
+        .json(rest);
+    } else {
+      // Creates new user if user does not already exist
+      const generatedPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8); // Conjoin last 8 digits(because random() returns a value between 0-1) of 2 random numbers that contains integers 0-9 and letters a-z
+      const hashedPassword = bcryptjs.hashSync(generatedPassword, 10);
+      const newUser = new User({ 
+        username: req.body.name.split(" ").join("").toLowerCase() + Math.random().toString(36).slice(-3), 
+        email: req.body.email, 
+        password: hashedPassword, 
+        avatar: req.body.photo }); // Generate lowercase username with random numbs and omit spaces
+      await newUser.save();
+      // Token consisting of user's _id and env variable unique to this app 
+      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+      const { password: pass, ...rest } = user._doc;
+      res
+        .cookie('access_token', token, { httpOnly: true }) 
+        .status(200)
+        .json(rest);
+    }
+  } catch (error) {
+    next(error) // Handled by middleware in index.js
+  }
+};
