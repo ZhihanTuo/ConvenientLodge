@@ -30,3 +30,15 @@ export const updateUser = async (req, res, next) => {
     next(error); // Handled by middleware
   }
 };
+
+export const deleteUser = async (req, res, next) => {
+  // params.id = :id 
+  if (req.user.id != req.params.id) { return next(errorHandler(401, 'Unauthorized access')) } 
+  try {
+    await User.findByIdAndDelete(req.params.id);
+    res.clearCookie('access_token'); // Clear the cookie of access_token
+    res.status(200).json('User has been deleted');
+  } catch (error) {
+    next(error); // Handled by middleware
+  }
+}
