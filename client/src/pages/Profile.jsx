@@ -4,6 +4,7 @@ import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/
 import { app } from '../firebase';
 import { updateUserStart, updateUserSuccess, updateUserFailure, deleteUserFailure, deleteUserStart, deleteUserSuccess, signOutUserStart, signOutUserFailure } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 export default function Profile() {
   const fileRef = useRef(null);
@@ -41,11 +42,13 @@ export default function Profile() {
       }
     );
   };
+
   // Change/update formData (username, email, password, avatar)
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
+  /* Submit function */
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent page refresh
     try {
@@ -73,6 +76,7 @@ export default function Profile() {
     }
   };
 
+  /* Delete user function */
   const handleDeleteUser = async() => {
     try {
       // Start user delete
@@ -94,6 +98,7 @@ export default function Profile() {
     }
   };
 
+  /* SignOut functions */
   const handleSignout = async () => {
     try {
       dispatch(signOutUserStart());
@@ -112,17 +117,21 @@ export default function Profile() {
   return (
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl font-semibold text-center my-7'>Profile</h1>
+      {/* Submit */}
       <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
+        {/* Profile icon change */}
         <input onChange={(e) => setFile(e.target.files[0])} 
           type='file' ref={fileRef} 
           hidden 
           accept='image/*'
         />
+        {/* Profile icon */}
         <img onClick={()=>fileRef.current.click()} 
           src={formData.avatar || currentUser.avatar} 
           alt="Profile" 
           className='rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2'
         />
+        {/* Error message */}
         <p className='text-sm self-center'>
           {/* If fileUploadError, generate error message */}
           {(fileUploadError) ? (<span className='text-red-700'>Image Upload Error &#40;Must be &lt;2MB&#41;</span>
@@ -137,7 +146,7 @@ export default function Profile() {
             ''
           )}
         </p>
-
+        {/* Username */}
         <input 
           type='text' 
           placeholder='Username' 
@@ -146,6 +155,7 @@ export default function Profile() {
           className='border p-3 rounded-lg'
           onChange={handleChange}
         />
+        {/* Email */}
         <input 
           type='email' 
           placeholder='Email' 
@@ -154,22 +164,27 @@ export default function Profile() {
           className='border p-3 rounded-lg'
           onChange={handleChange}
         />
+        {/* Password */}
         <input 
           type='password' 
           placeholder='Password' 
           id='password' 
           className='border p-3 rounded-lg'
         />
-
+        {/* Update button */}
         <button disabled={loading} className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80'>
           {loading ? 'Loading...' : 'Update'}
         </button>
+        <Link className='bg-green-700 text-white p-3 rounded-lg uppercase text-center hover:opacity-95' to={"/create-listing"}>
+          Create Listing
+        </Link>
       </form>
+      {/* Sign Out & Delete account options */}
       <div className="flex justify-between mt-5">
         <span onClick={handleSignout} className='text-red-600 cursor-pointer'>Sign Out</span>
         <span onClick={handleDeleteUser} className='text-red-700 cursor-pointer'>Delete Account</span>
       </div>
-
+      {/* Update error/success message  */}
       <p className='text-red-700 mt-5'>{error ? error : ''} </p>
       <p className='text-green-700 mt-5'>{updateSuccess ? 'Profile updated successfully!' : ''} </p>
     </div>
