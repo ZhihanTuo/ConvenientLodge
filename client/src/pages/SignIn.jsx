@@ -1,7 +1,7 @@
 import { Link, useNavigate, useResolvedPath } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { signInStart, signInSuccess, SignInFailure } from '../redux/user/userSlice';
+import { signInStart, signInSuccess, signInFailure } from '../redux/user/userSlice';
 import OAuth from '../components/OAuth';
 
 export default function SignIn() {
@@ -33,14 +33,14 @@ export default function SignIn() {
       const data = await res.json();
       // If an error occurs
       if (data.success === false) { 
-        dispatch(SignInFailure(data.message));
+        dispatch(signInFailure(data.message));
         return; 
       }
       dispatch(signInSuccess(data)); // Finished loading by this point
       // If no errors, navigate user to home page 
       navigate('/');
     } catch(error) {
-      dispatch(SignInFailure(error.message));
+      dispatch(signInFailure(error.message));
     }
   };
   return (
