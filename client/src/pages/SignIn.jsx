@@ -22,7 +22,7 @@ export default function SignIn() {
     e.preventDefault(); // Prevent page refresh
     try {
       dispatch(signInStart());
-      const res = await fetch('/api/auth/signin', // Use fetch to request api route 
+      const res = await fetch('/api/auth/signin', // Use fetch to request api route of signin
         {
           method: 'POST',
           headers: {
