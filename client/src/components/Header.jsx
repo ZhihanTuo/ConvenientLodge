@@ -32,7 +32,7 @@ export default function Header() {
           <Link to='/about'>
             <li className='hidden sm:inline text-slate-500 hover:underline'>About</li>
           </Link>
-          <Link to='/sign-in'>
+          <Link to='/profile'>
             {
               (currentUser) ? 
               (<img className='rounded-full h-7 w-7 object-cover' src={currentUser.avatar} alt="Profile"/>) 
