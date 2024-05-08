@@ -60,7 +60,7 @@ export default function Profile() {
       });
       // Save into data as a json
       const data = await res.json();
-      // If failed, dispatch data's message 
+      // If failed, pass error message 
       if (data.success === false) {
         dispatch(updateUserFailure(data.message));
         return;
@@ -75,17 +75,20 @@ export default function Profile() {
 
   const handleDeleteUser = async() => {
     try {
+      // Start user delete
       dispatch(deleteUserStart());
       const res = await fetch(`/api/user/delete/${currentUser._id}`, {
         method: 'DELETE',
       });
+      // Save into data as json
       const data = await res.json();
       if (data.success === false) {
+        // If failed, pass error message
         dispatch(deleteUserFailure(data.message));
         return;
       }
+      // Passed failure check, pass data to deleteUserSuccess
       dispatch(deleteUserSuccess(data));  
-
     } catch (error) {
       dispatch(deleteUserFailure(error.message));
     }
