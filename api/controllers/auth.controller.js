@@ -70,3 +70,12 @@ export const google = async(req, res, next) => {
     next(error) // Handled by middleware in index.js
   }
 };
+
+export const signout = async (req, res, next) => {
+  try {
+    res.clearCookie('access_token');
+    res.status(200).json('Logout successful!');
+  } catch (error) {
+    next(error); // Handled by middleware
+  }
+}
