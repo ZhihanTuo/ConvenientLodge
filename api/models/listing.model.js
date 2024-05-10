@@ -30,7 +30,11 @@ const listingSchema = new mongoose.Schema(
       type: Number,
       required: true
     },
-    utilities: {
+    utilsIncluded: {
+      type: Boolean,
+      required: true
+    },
+    utilitiesPrice: {
       type: Number
     },
     parking: {
@@ -46,7 +50,8 @@ const listingSchema = new mongoose.Schema(
       required: true
     },
     shared: {
-      type: Boolean
+      type: Boolean,
+      required: true
     },
     imageUrls: {
       type: Array,
