@@ -130,7 +130,23 @@ export default function Profile() {
     } catch (error) {
       setShowListingsError(true);
     }
-  }
+  };
+
+  const handleListingDelete = async (listingId) => {
+    try {
+      const res = await fetch(`/api/listing/delete/${listingId}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        console.log(data.message);
+        return;
+      }
+      setUserListings(prev => prev.filter((listing) => listing._id !== listingId));
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   return (
     <div className='p-3 max-w-lg mx-auto'>
@@ -206,6 +222,7 @@ export default function Profile() {
       <p className='text-red-700 mt-5'>{error ? error : ''} </p>
       <p className='text-green-700 mt-5'>{updateSuccess ? 'Profile updated successfully!' : ''} </p>
       {/* Show listings page */}
+      {/* TODO: Sort by most recent */}
       <button onClick={handleShowListings} className='text-green-700 w-full'>Show Listings</button>
       <p className='text-red-700' mt-5>{showListingsError ? 'Error showing listings' : ''}</p>
 
@@ -225,7 +242,7 @@ export default function Profile() {
             <p>{listing.name}</p>
           </Link>
           <div className='flex flex-col item-center'>
-            <button className='text-red-700 uppercase'>Delete</button>
+            <button onClick={()=> handleListingDelete(listing._id)} className='text-red-700 uppercase'>Delete</button>
             <button className='text-green-700 uppercase'>Edit</button>
           </div>
         </div>
