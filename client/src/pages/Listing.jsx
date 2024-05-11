@@ -116,7 +116,7 @@ export default function Listing() {
             {listing.pets && 
               <li className='flex items-center gap-1 whitespace-nowrap'> 
                 <FaCat className='text-lg'/>
-                Pets Welcome
+                Pet Friendly
               </li>
             }
             {listing.shared && 
