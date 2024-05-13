@@ -11,6 +11,7 @@ export default function Search() {
     furnished: false,
     utilsIncluded: false,
     pets: false,
+    shared: false,
     sort: 'created_at',
     order: 'desc'
   });
@@ -27,6 +28,7 @@ export default function Search() {
     const furnishedFromUrl = urlParams.get('furnished');
     const petsFromUrl = urlParams.get('pets');
     const utilsIncludedFromUrl = urlParams.get('utilsIncluded');
+    const sharedFromUrl = urlParams.get('shared');
     const sortFromUrl = urlParams.get('sort');
     const orderFromUrl = urlParams.get('order');
     /* Change sidebardata if there is a change in search bar */
@@ -37,6 +39,7 @@ export default function Search() {
       furnishedFromUrl ||
       petsFromUrl ||
       utilsIncludedFromUrl || 
+      sharedFromUrl ||
       sortFromUrl ||
       orderFromUrl
     ) {
@@ -47,6 +50,7 @@ export default function Search() {
         furnished: furnishedFromUrl === true ? true : false,
         pets: petsFromUrl === true ? true : false,
         utilsIncluded: utilsIncludedFromUrl === true ? true : false,
+        shared: sharedFromUrl === true ? true : false,
         sort: sortFromUrl || 'created_at',
         order: orderFromUrl || 'desc'
       });
@@ -69,18 +73,18 @@ export default function Search() {
   fetchListings(); 
 }, [location.search]);
 
-  /* Handles changes to sideabr filters */
+  /* Handles type(string) changes */
   const handleChange = (e) => {
     // Handles type changes
-    if (e.target.id === 'sale' || e.target.id === 'rent' || e.target.id === 'shared' || e.target.id === 'all') {
+    if (e.target.id === 'sale' || e.target.id === 'rent' || e.target.id === 'all') {
       setSidebardata({...sidebardata, type: e.target.id});
     }
     // Handles search term changes
     if (e.target.id === 'searchTerm') {
       setSidebardata({...sidebardata, searchTerm: e.target.value});
     }
-    // Handles accomodations changes
-    if (e.target.id === 'parking' || e.target.id === 'furnished' || e.target.id === 'pets' || e.target.id === 'utilsIncluded') {
+    // Handles boolean changes
+    if (e.target.id === 'parking' || e.target.id === 'furnished' || e.target.id === 'pets' || e.target.id === 'utilsIncluded' || e.target.id === 'shared') {
       setSidebardata({...sidebardata, [e.target.id]: e.target.checked || e.target.checked === 'true' ? true : false}); // Also includes 'true' string
     }
     // Handles sorting order changes
@@ -102,6 +106,7 @@ export default function Search() {
     urlParams.set('furnished', sidebardata.furnished);
     urlParams.set('pets', sidebardata.pets);
     urlParams.set('utilsIncluded', sidebardata.utilsIncluded);
+    urlParams.set('shared', sidebardata.shared);
     urlParams.set('sort', sidebardata.sort);
     urlParams.set('order', sidebardata.order);
     // searchQuery string of all the search terms
@@ -130,6 +135,7 @@ export default function Search() {
     <div className='flex flex-col md:flex-row'>
       <div className='p-6 border-b-2 md:border-r-2 md:min-h-screen'>
         <form onSubmit={handleSubmit} className='flex flex-col gap-8'> 
+        {/* Search term */}
           <div className='flex items-center gap-2'> 
             <label className='whitespace-nowrap font-semibold'>Search term:</label>
             <input 
@@ -168,7 +174,7 @@ export default function Search() {
             <div className='flex gap-2'>
               <input type='checkbox' id='shared' className='w-5'
                 onChange={handleChange}
-                checked={sidebardata.type === 'shared'}
+                checked={sidebardata.shared}
               />
               <span>Shared</span>
             </div>
