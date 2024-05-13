@@ -59,8 +59,8 @@ export default function Home() {
             <br/>
             Featuring a wide range of properties available nationwide.
           </div>
-          <Link to={'/search'} className='text-xs sm:text-sm text-blue-500 font-bold hover:underline'>
-            Get started...
+          <Link to={'/search'} className='text-lg sm:text-lg text-[#A99985] font-bold hover:underline'>
+            Get Started...
           </Link>
         </div>
 
@@ -79,7 +79,7 @@ export default function Home() {
             <div>
               <div className='my-3'>
                 <h2 className='text-2xl font-semibold text-slate-600'>Recent For Sale Listings</h2>
-                <Link className='text-sm text-blue-500 hover:underline' to={'/search?type=sale'}>
+                <Link className='text-md text-[#A99985] hover:underline' to={'/search?type=sale'}>
                   Show more
                 </Link>
               </div>
@@ -94,7 +94,7 @@ export default function Home() {
             <div>
               <div className='my-3'>
                 <h2 className='text-2xl font-semibold text-slate-600'>Recent For Rent Listings</h2>
-                <Link className='text-sm text-blue-500 hover:underline' to={'/search?type=rent'}>
+                <Link className='text-md text-[#A99985] hover:underline' to={'/search?type=rent'}>
                   Show more
                 </Link>
               </div>
@@ -109,7 +109,7 @@ export default function Home() {
             <div>
               <div className='my-3'>
                 <h2 className='text-2xl font-semibold text-slate-600'>Recent Shared Listings</h2>
-                <Link className='text-sm text-blue-500 hover:underline' to={'/search?shared=true'}>
+                <Link className='text-md text-[#A99985] hover:underline' to={'/search?shared=true'}>
                   Show more
                 </Link>
               </div>
