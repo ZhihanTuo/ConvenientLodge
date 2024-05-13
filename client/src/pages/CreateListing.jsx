@@ -194,6 +194,7 @@ export default function CreateListing() {
             onChange={handleChange}
             value={formData.address}
           />
+          {/* Listing filter options (types and accomodations) */}
           <div className='flex gap-6 flex-wrap'>
             <div className='flex gap-2'>
               <input 
@@ -266,11 +267,12 @@ export default function CreateListing() {
               <span>Pets</span>
             </div>
           </div>
+          {/* Bed and Bath fields */}
           <div className='flex gap-6 flex-wrap'>
             <div className='flex items-center gap-2'> 
               <input 
                 type='number' 
-                id='bedooms' 
+                id='bedrooms' 
                 min='1' 
                 max='20' 
                 required 
@@ -293,6 +295,7 @@ export default function CreateListing() {
               />
               <p>Baths</p>
             </div>
+            {/* Listing and util price fields */}
             <div className='flex items-center gap-2'> 
               <input 
                 type='number' 
