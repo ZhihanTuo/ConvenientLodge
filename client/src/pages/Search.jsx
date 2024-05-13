@@ -17,6 +17,7 @@ export default function Search() {
 
   const [loading, setLoading] = useState(false);
   const [listings, setListings] = useState([]);
+  const [showMore, setShowMore] = useState(false);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -52,10 +53,15 @@ export default function Search() {
     }
   // Gets listings that match search query and store in listings
   const fetchListings = async () => {
+    setShowMore(false);
     setLoading(true);
     const searchQuery = urlParams.toString();
     const res = await fetch(`/api/listing/get?${searchQuery}`);
     const data = await res.json();
+    // Set show more to true if there are 10+ listings
+    if (data.length > 9) {
+      setShowMore(true);
+    } else { setShowMore(false); }
     setListings(data);
     setLoading(false);
   };
@@ -102,6 +108,22 @@ export default function Search() {
     const searchQuery = urlParams.toString();
     // Direct user to the search url with queries
     navigate(`/search?${searchQuery}`)
+  }
+
+  const onShowMoreClick = async() => {
+    const numberOfListings = listings.length;
+    const startIndex = numberOfListings;
+    const urlParams = new URLSearchParams(location.search);
+    urlParams.set('startIndex', startIndex);
+    const searchQuery = urlParams.toString();
+    const res = await fetch(`/api/listing/get${searchQuery}`);
+    const data = await res.json();
+    // No need to display show more if there are less than 10 listings
+    if (data.length < 10) {
+      setShowMore(false);
+    }
+    // Add new listings to previous listings
+    setListings([...listings, ...data]);
   }
 
   return (
@@ -213,6 +235,12 @@ export default function Search() {
           {!loading && listings && listings.map((listing) => (
               <ListingItem key={listing._id} listing={listing} />
             ))}
+            {/* Show more button */}
+            {showMore && (
+              <button onClick={() =>{ onShowMoreClick(); }} className='text-green-700 hover:underline p-7 text-center w-full'>         
+                Show more
+              </button>
+            )}
         </div>
       </div>
     </div>
