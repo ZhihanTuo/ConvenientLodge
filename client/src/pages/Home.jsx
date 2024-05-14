@@ -62,7 +62,11 @@ export default function Home() {
           <Link to={'/search'} className='text-lg sm:text-lg text-[#A99985] font-bold hover:underline'>
             Get Started...
           </Link>
-          <p className='text-md sm:text-md text-[#644536] font-semibold'>Sign In to Contact Listing Poster</p>
+          <p className='text-md sm:text-md text-[#644536] font-semibold'>
+            <Link to={'/sign-in'} className='font-bold hover:underline'> 
+              Sign In 
+            </Link> to Contact Listing Poster
+          </p>
         </div>
 
       {/* Swiper */}
