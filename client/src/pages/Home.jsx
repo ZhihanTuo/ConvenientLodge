@@ -52,7 +52,7 @@ export default function Home() {
   return (
     <div>
       {/* Page Intro */}
-        <div className='flex flex-col gap-6 p-28 px-3 max-w-6xl mx-auto '>
+        <div className='flex flex-col gap-5 p-28 px-3 max-w-6xl mx-auto '>
           <h1 className='text-slate-700 font-bold text-3xl lg:text-6xl'>Find your next <span className='text-slate-500'>home</span></h1>
           <div className='text-gray-400 text-xs sm:text-sm'>
             Convenience Lodging is the premier tool to find your next perfect place to live.
@@ -62,6 +62,7 @@ export default function Home() {
           <Link to={'/search'} className='text-lg sm:text-lg text-[#A99985] font-bold hover:underline'>
             Get Started...
           </Link>
+          <p className='text-md sm:text-md text-[#644536] font-semibold'>Sign In to Contact Listing Poster</p>
         </div>
 
       {/* Swiper */}
