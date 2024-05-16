@@ -182,7 +182,7 @@ export default function Search() {
             </div>
           </div>
           {/* Accomodations */}
-          <div className='flex gap-2 flex-wrap items-center'>
+          <div className='flex-1 gap-2 items-center'>
             <label className='font-semibold'>Accomodations:</label>
             <div className='flex gap-2'>
               <input type='checkbox' id='parking' className='w-5'
