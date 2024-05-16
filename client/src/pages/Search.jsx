@@ -115,13 +115,15 @@ export default function Search() {
     navigate(`/search?${searchQuery}`)
   }
 
+  /* Handles show more submission 
+   * Shows more listings and sets showMore to false if there are <10 listings  */
   const onShowMoreClick = async() => {
     const numberOfListings = listings.length;
     const startIndex = numberOfListings;
     const urlParams = new URLSearchParams(location.search);
     urlParams.set('startIndex', startIndex);
     const searchQuery = urlParams.toString();
-    const res = await fetch(`/api/listing/get${searchQuery}`);
+    const res = await fetch(`/api/listing/get?${searchQuery}`);
     const data = await res.json();
     // No need to display show more if there are less than 10 listings
     if (data.length < 10) {
@@ -133,7 +135,7 @@ export default function Search() {
 
   return (
     <div className='flex flex-col md:flex-row'>
-      <div className='p-6 border-b-2 md:border-r-2 md:min-h-screen'>
+      <div className='p-6 border-b-2 flex-2 auto-h md:border-r-2 md:min-h-screen'>
         <form onSubmit={handleSubmit} className='flex flex-col gap-8'> 
         {/* Search term */}
           <div className='flex items-center gap-2'> 
