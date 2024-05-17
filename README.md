@@ -1,4 +1,8 @@
-# ConvenientLodge | An Intuitive Platform for Renting/Buying/Selling Properties
+# ConvenientLodge 
+* An intuitive platform for renting/buying/selling properties
+* Features advanced security that keeps your information safe
+* Utilizes dynamic search filters to help you find the perfect home
+
 ![Home Page](images/HomePage.jpg)
 
 ## Sign Up for an account to access our services!
